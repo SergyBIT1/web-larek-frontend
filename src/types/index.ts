@@ -1,4 +1,4 @@
-
+import { Component } from './base/Component'
 
 // слой Model
 
@@ -73,19 +73,13 @@ class SuccessUI extends Component<ISuccess> {
        }
 }
 
-class OrderUI extends Component<IOrderForm> {
-   _email: string;
-   _phone: string;
- constructor(container: HTMLElement, events: EventEmitter) {
-       super(container);
-}
-}
-
-class ContactsUI extends Component<IOrderForm> {
-   _email: string;
-   _phone: string;
- constructor(container: HTMLElement, events: EventEmitter) {
-       super(container);
+class FormUI extends Component<IForm> {
+  _email: string;
+  _phone: string;
+  _address: string;
+  
+constructor(container: HTMLElement, events: EventEmitter) {
+      super(container);
 }
 }
 
@@ -127,9 +121,10 @@ interface ISuccess {
     total: number;
 }
 
-interface IOrderForm {
+interface IForm {
 	email: string;
   phone: string;
+  address: string;
 }
 
 interface ISuccessActions {
