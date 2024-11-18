@@ -1,21 +1,22 @@
-import { ICard } from "../../types";
+import { IProduct } from "../../types";
 import { Api, ApiListResponse } from "../base/api";
 
+// интерфейс сервера
 export interface ILarekApi {
-  getProductlist: () => Promise<ICard[]>;
+  getProductList: () => Promise<IProduct[]>;
 }
 
 export class LarekApi extends Api implements ILarekApi {
   readonly cdn: string;
 
-  constructor(cdn: string, baseUrl: string, options?: RequestInit) {
+  constructor(baseUrl: string, cdn: string, options?: RequestInit) {
     super(baseUrl, options);
     this.cdn = cdn;
 }
 
-  getProductlist() {
+  getProductList() {
     return this.get(`/product`)
-    .then((data: ApiListResponse<ICard>) =>{
+    .then((data: ApiListResponse<IProduct>) =>{
     return data.items.map((item) => ({...item}) )
   })
 }

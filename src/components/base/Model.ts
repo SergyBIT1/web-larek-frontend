@@ -1,65 +1,13 @@
-import { ICard } from "../../types";
+import { IEvents } from "./events";
 
-export class CardModel {
-  protected items: ICard[] = [];
-
-  constructor() {}
-
-  setProductList(data: ICard[]) {
-    this.items = data;
+export abstract class Model<T> {
+  constructor(data: Partial<T>, protected events: IEvents) {
+      Object.assign(this, data);
   }
 
-  getProductlist(): ICard[] {
-    return this.items;
+  // Сообщить всем что модель поменялась
+  emitChanges(event: string, payload?: object) {
+      // Состав данных можно модифицировать
+      this.events.emit(event, payload ?? {});
   }
 }
-
-const fakeArray = [
-  {
-    "id": "4175",
-    "description": "Если планируете решать задачи в тренажёре, берите два.",
-    "image": "/5_Dots.svg",
-    "title": "+1 час в сутках",
-    "category": "софт-скил",
-    "price": 750
-  }
-]
-
-const cardModel = new CardModel();
-cardModel.setProductList(fakeArray)
-console.log(cardModel.getProductlist())
-
-
-
-
-// пробный набор для консоли
-
-export interface ICar {
-  model: string;
-  year: number;
-}
-
-export class CarModel {
-  protected items: ICar[] = [];
-  
-  constructor() {}
-
-  set(data: ICar[]) {
-    this.items = data;
-  }
-  get(): ICar[] {
-    return this.items
-  }
-}
-
-const carArray = [
-  {
-    'model': 'mercedes',
-    'year': 1961
-  }
-  
-]
-
-const carModel = new CarModel();
-carModel.set(carArray)
-console.log(carModel.get())
