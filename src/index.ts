@@ -20,23 +20,16 @@ const catalogCardTemplate = ensureElement<HTMLTemplateElement>('#card-catalog');
 // основные контейнеры
 const page = new PageUI(document.body, events)
 
-// изменились элементы каталога
+
 events.on('items:changed', () => {
-	page.catalog = model.getProductlist().map((item) => {
-		const card = new CardOnPage(cloneTemplate(catalogCardTemplate), {
-			onClick: () => events.emit('card:select', item),
-		});
-		return card.render({
-			id: item.id,
-			title: item.title,
-			category: item.category as CategoryType,
-			image: api.cdn + item.image,
-			price: item.price,
-		});
-	});
-});
-
-
+  const cardsHTMLArray = model.getProductlist().map(
+    card => new CardOnPage(cloneTemplate(catalogCardTemplate))
+    .render(card))
+    page.render({
+      catalog: cardsHTMLArray
+    }
+    )
+})
 
 api
 .getProductData()

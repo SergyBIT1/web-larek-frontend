@@ -12,11 +12,11 @@ export class CardUI extends Component<IProduct> {
   protected _price: HTMLElement;
   protected _button: HTMLButtonElement;
 
-  constructor(protected blockName:string, container: HTMLElement) {
+  constructor(container: HTMLElement, actions?: ICardActions) {
     super(container)
-    this._title = ensureElement<HTMLElement>(`.${blockName}__title`, this.container)
-    this._price = ensureElement<HTMLElement>(`.${blockName}__price`, this.container)
-    this._button = container.querySelector(`.${blockName}__button`)
+    this._title = ensureElement<HTMLElement>('.card__title', this.container)
+    this._price = ensureElement<HTMLElement>('.card__price', this.container)
+    this._button = container.querySelector('.card__button')
   }
 
   set title(value:string) {
@@ -31,7 +31,7 @@ export class CardOnPage extends CardUI {
   _category: HTMLElement;
 
   constructor(container: HTMLElement, actions?: ICardActions) {
-    super('.card', container);
+    super(container);
 
     this._image = ensureElement<HTMLImageElement>('.card__image', container);
     this._category = ensureElement<HTMLElement>('.card__category')
