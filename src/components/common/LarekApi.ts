@@ -3,7 +3,7 @@ import { Api, ApiListResponse } from "../base/api";
 
 // интерфейс сервера
 export interface ILarekApi {
-  getProductList: () => Promise<IProduct[]>;
+  getProductData: () => Promise<IProduct[]>;
 }
 
 export class LarekApi extends Api implements ILarekApi {
@@ -14,10 +14,16 @@ export class LarekApi extends Api implements ILarekApi {
     this.cdn = cdn;
 }
 
-  getProductList() {
+  getProductData() {
     return this.get(`/product`)
     .then((data: ApiListResponse<IProduct>) =>{
     return data.items.map((item) => ({...item}) )
   })
 }
+  orderProductsResponse() {
+    return this.get(`/order`)
+    .then((data: ApiListResponse<IProduct>) => {
+      return data.items.map((item) => ({...item}) )
+  })
+} 
 }

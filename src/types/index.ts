@@ -14,6 +14,18 @@ export interface IProduct {
   price: number;
 }   
 
+//  категории товаров
+export type CategoryType =
+	| 'другое'
+	| 'софт-скил'
+	| 'дополнительное'
+	| 'кнопка'
+	| 'хард-скил';
+
+export type CategoryList = {
+  [Key in CategoryType]: string;
+};
+
 // модель данных
 export interface IModelProduct {
   setProductList(data: IProduct[]): void; // метод добавленгия каталога с товарами , массива
