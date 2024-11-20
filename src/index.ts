@@ -1,6 +1,6 @@
 import './scss/styles.scss';
 import { LarekApi } from './components/common/LarekApi';
-import { ModelProduct } from './components/AppData';
+import { ModelProduct } from './components/ModelApp';
 import { API_URL, CDN_URL } from './utils/constants';
 import { EventEmitter } from './components/base/events';
 import { cloneTemplate, ensureElement } from './utils/utils';

@@ -13,7 +13,7 @@ export class ModelProduct extends Model<IProduct>{
   // добавление массива в модель
   setProductList(data: IProduct[]) {
     this.items = data;
-    // this.events.emit('items:changed')
+    this.events.emit('items:changed')
   }
 
   // получение массива с товарами
