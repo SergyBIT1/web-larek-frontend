@@ -4,7 +4,7 @@ import { ensureElement } from "../utils/utils";
 import { Component } from "./base/Component";
 
 export interface ICardActions {
-  onClick: (event: MouseEvent) =>void;
+  onClick: (event: MouseEvent) => void;
 }
 
 export class CardUI extends Component<IProduct> {
@@ -18,6 +18,13 @@ export class CardUI extends Component<IProduct> {
     this._price = ensureElement<HTMLElement>('.card__price', this.container)
     this._button = container.querySelector('.card__button')
 
+    if (actions?.onClick) {
+      if (this._button) {
+          this._button.addEventListener('click', actions.onClick);
+      } else {
+          container.addEventListener('click', actions.onClick);
+      }
+  }
   }
   
   set title(value:string) {
@@ -31,7 +38,7 @@ export class CardOnPage extends CardUI {
   _category: HTMLElement;
 
   constructor(container: HTMLElement, actions?: ICardActions) {
-    super(container);
+    super(container, actions);
 
     this._image = ensureElement<HTMLImageElement>('.card__image', container);
     this._category = ensureElement<HTMLElement>('.card__category', container)

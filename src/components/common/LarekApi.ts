@@ -1,9 +1,11 @@
-import { IProduct } from "../../types";
+import { IOrder, IOrderResponse, IOrderResult, IProduct } from "../../types";
 import { Api, ApiListResponse } from "../base/api";
 
 // интерфейс сервера
 export interface ILarekApi {
-  getProductData: () => Promise<IProduct[]>;
+  getProductData: (id: string) => Promise<IProduct[]>;
+  getProductById: (id: string) => Promise<IProduct>;
+  orderResponse: (order: IOrder) => Promise<IOrderResult>;
 }
 
 export class LarekApi extends Api implements ILarekApi {
@@ -14,22 +16,29 @@ export class LarekApi extends Api implements ILarekApi {
     this.cdn = cdn;
 }
 
-  getProductData() {
+  getProductData(): Promise<IProduct[]> {
     return this.get(`/product`)
-    .then((data: ApiListResponse<IProduct>) =>{
-    return data.items.map((item) => ({...item}) )
-  })
-}
+  .then((data: ApiListResponse<IProduct>) =>
+              data.items.map((item) => ({
+                  ...item,
+                  // image: this.cdn + item.image
+        }))
+    )
+      }
 
+// метод получения одного товара по id  
+  getProductById(id: string): Promise<IProduct> {
+    return this.get(`/product/${id}`).then(
+        (item: IProduct) => ({
+            ...item,
+            image: this.cdn + item.image,
+        })
+    );
+  }
 
-// добавить метод получения одного товара по id  
-// return this.get(`/product/${id}`).then
-
-
-  orderResponse() {
-    return this.get(`/order`)
-    .then((data: ApiListResponse<IProduct>) => {
-      return data.items.map((item) => ({...item}) )
-  })
-} 
-}
+  orderResponse(order: IOrder): Promise<IOrderResult> {
+    return this.post('/order', order).then(
+        (data: IOrderResult) => data
+    );
+  }
+  }

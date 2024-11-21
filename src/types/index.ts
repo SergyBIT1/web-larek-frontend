@@ -50,3 +50,21 @@ export interface IModelProduct {
   getProductList(): IProduct[]
 }
 
+export interface IOrderResult {
+  id: string;
+}
+
+// Данные о заказе
+export interface IOrderResponse extends IUser {
+	items: string[]; 
+	total: number;
+}
+
+export interface IOrderForm {
+  email: string;
+  phone: string;
+}
+
+export interface IOrder extends IOrderForm {
+  items: string[]
+}
