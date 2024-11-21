@@ -17,12 +17,12 @@ export class CardUI extends Component<IProduct> {
     this._title = ensureElement<HTMLElement>('.card__title', this.container)
     this._price = ensureElement<HTMLElement>('.card__price', this.container)
     this._button = container.querySelector('.card__button')
-  }
 
+  }
+  
   set title(value:string) {
     this.setText(this._title, value)
   }
-
 }
 
 // класс для отображения карточки на странице
@@ -34,7 +34,7 @@ export class CardOnPage extends CardUI {
     super(container);
 
     this._image = ensureElement<HTMLImageElement>('.card__image', container);
-    this._category = ensureElement<HTMLElement>('.card__category')
+    this._category = ensureElement<HTMLElement>('.card__category', container)
   }
 
   set image(value: string) {
@@ -44,5 +44,20 @@ export class CardOnPage extends CardUI {
   set category(value: CategoryType) {
     this.setText(this._category, value);
     this.toggleClass(this._category, categoryList[value], true)
+  }
+}
+
+// класс для подробного отображения карточки
+export class CardPreview extends CardOnPage {
+  _description: HTMLElement;
+
+  constructor(container: HTMLElement, actions?: ICardActions) {
+    super(container, actions)
+
+    this._description = ensureElement<HTMLElement>('.card__text', container)
+  }
+
+  set description(value:string) {
+    this.setText(this._description, value)
   }
 }

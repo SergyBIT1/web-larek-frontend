@@ -12,7 +12,25 @@ export interface IProduct {
   title: string;
   category: string;
   price: number;
-}   
+}  
+
+export interface IUser {
+  address?: string;
+  email?: string;
+  phone?: string;
+  payment?: string;
+}
+
+export interface IOrderForm {
+  address: string;
+  email: string;
+  phone: string;
+  payment: string;
+}
+
+
+// ошибки в формах
+export type FormErrors = Partial<Record<keyof IUser, string>>;
 
 //  категории товаров
 export type CategoryType =
@@ -31,3 +49,4 @@ export interface IModelProduct {
   setProductList(data: IProduct[]): void; // метод добавленгия каталога с товарами , массива
   getProductList(): IProduct[]
 }
+

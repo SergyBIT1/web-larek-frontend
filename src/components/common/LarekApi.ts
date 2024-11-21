@@ -20,7 +20,13 @@ export class LarekApi extends Api implements ILarekApi {
     return data.items.map((item) => ({...item}) )
   })
 }
-  orderProductsResponse() {
+
+
+// добавить метод получения одного товара по id  
+// return this.get(`/product/${id}`).then
+
+
+  orderResponse() {
     return this.get(`/order`)
     .then((data: ApiListResponse<IProduct>) => {
       return data.items.map((item) => ({...item}) )
