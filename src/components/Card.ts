@@ -7,7 +7,7 @@ export interface ICardActions {
   onClick: (event: MouseEvent) => void;
 }
 
-export class CardUI extends Component<IProduct> {
+export class Card extends Component<IProduct> {
   protected _title: HTMLElement;
   protected _price: HTMLElement;
   protected _button: HTMLButtonElement;
@@ -27,13 +27,32 @@ export class CardUI extends Component<IProduct> {
   }
   }
   
+set button(value: string) {
+  if (this._button) {
+    this._button.textContent = value;
+  }
+}
+
+set id(value: string) {
+  this.container.dataset.id = value;
+}
+
+// отображение цены с сервера
+set price(value: string) {
+  if (value === null) {
+    this.setText(this._price, `Priceless`)
+  } else {
+    this.setText(this._price, `${value} синапсов`)
+  }
+}
+
   set title(value:string) {
     this.setText(this._title, value)
   }
 }
 
 // класс для отображения карточки на странице
-export class CardOnPage extends CardUI {
+export class CardOnPage extends Card {
   _image: HTMLImageElement;
   _category: HTMLElement;
 
@@ -67,4 +86,18 @@ export class CardPreview extends CardOnPage {
   set description(value:string) {
     this.setText(this._description, value)
   }
+}
+
+export class IndexCard extends Card {
+  private _index: HTMLElement;
+
+  constructor(container: HTMLElement, actions: ICardActions) {
+    super(container, actions)
+    this._index = ensureElement<HTMLElement>('.basket__item-index', container)
+  }
+
+  set index(value: number) {
+    this.setText(this._index, value.toString());
+  }
+
 }

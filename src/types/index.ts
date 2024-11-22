@@ -68,3 +68,8 @@ export interface IOrderForm {
 export interface IOrder extends IOrderForm {
   items: string[]
 }
+
+export interface IForm {
+  valid: boolean;
+  errors: string[];
+}

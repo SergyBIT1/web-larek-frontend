@@ -35,7 +35,42 @@ export class ModelProduct extends Model<IProduct>{
   setPreview(card: IProduct) {
     this.preview = card.id;
     this.events.emit('preview:change', card);
-
   }
-  
+
+  // стоимость товаров в корзине
+  getTotal() {
+    return this.basket.reduce((a, c) => a + c.price, 0)
 }
+
+  isProductInBasket(id: string): boolean {
+    return this.basket.some((item) => item.id === id);
+  }
+
+  getQuantityInBasket(){
+    return this.basket.length;
+  }
+
+  addToBasket(id: string): void {
+    this.basket.push(this.getIdCard(id));
+    this.events.emit('basket:change', this.basket)
+  }
+
+  getIdCard(id: string): IProduct {
+    return this.items.find((item) => item.id === id);
+  }
+
+  clearBasket() {
+    this.basket = []
+    this.events.emit('basket:change', this.basket)
+    }
+
+  getBasket(): IProduct[] {
+    return this.basket
+  }
+
+    // данные о пользователе
+	getUserInfo() {
+		return this.userData;
+	}
+}
+  
