@@ -216,7 +216,7 @@ getFieldPayment() получение полей c выбором типа опл
 
 `set image`, типа тип `string`,  отображение картинки
 
-set category, тип  `CategoryType` отображение категории
+`set category`, тип  `CategoryType` отображение категории
 
 ### 3. Класс CardPreview
 
@@ -334,7 +334,7 @@ set category, тип  `CategoryType` отображение категории
 
 `set errors` отображение ошибок
 
-render обновление содержимого
+`render` обновление содержимого
 
 ### 9. Класс Order
 
