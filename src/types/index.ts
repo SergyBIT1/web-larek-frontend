@@ -81,6 +81,3 @@ export interface IForm {
 	valid: boolean;
 	errors: string[];
 }
-
-//тип определения способа оплаты
-export type PaymentMethod = 'cash' | 'online' | null;

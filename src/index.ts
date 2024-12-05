@@ -105,25 +105,14 @@ events.on('basket:open', () => {
 	});
 });
 
-// начало оформления заказа, кнопка "Оформить"
-events.on('basket:includeInOrder', () => {
-	// очищаем форму и данные перед новым заказом
-	const userInfo = model.getUserProfile(); //из модели получаю данные пользователя
-
-	model.clearUserData();
-	modal.render({
-		content: order.render({
-			valid: false,
-			errors: [],
-			address: userInfo.address,
-			payment: userInfo.payment,
-		}),
-	});
-});
-
 // добавление в корзину, кнопка "В корзину"
 events.on('card:toBasket', (item: IProduct) => {
 	model.addToBasket(item.id);
+});
+
+//удаление товара из корзины
+events.on('basket:delete', (item: IProduct) => {
+	model.deleteFromBasket(item.id);
 });
 
 // изменение состояния корзины
@@ -143,15 +132,23 @@ events.on('basket:changed', () => {
 	});
 });
 
-//удаляем товар из корзины
-events.on('basket:delete', (item: IProduct) => {
-	model.deleteFromBasket(item.id);
+// начало оформления заказа, кнопка "Оформить"
+events.on('basket:includeInOrder', () => {
+	const userInfo = model.getUserProfile(); 
+	model.clearUserData();
+	modal.render({
+		content: order.render({
+			valid: false,
+			errors: [],
+			address: userInfo.address,
+			payment: userInfo.payment,
+		}),
+	});
 });
 
 // Изменение текста ошибок
 events.on('input:error', (errors: Partial<IUser>) => {
 	handleErrors(errors);
-
 	updateUserData(errors);
 });
 

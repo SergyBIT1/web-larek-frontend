@@ -1,4 +1,4 @@
-import { FormErrors, IOrderBasket, IProduct, IUser } from '../types';
+import { FormErrors, IProduct, IUser } from '../types';
 import { Model } from './base/Model';
 import { IEvents } from './base/events';
 
