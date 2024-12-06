@@ -48,7 +48,7 @@ export type CategoryType =
 	| 'софт-скил'
 	| 'дополнительное'
 	| 'кнопка'
-	| 'хард-скил';
+	| 'хард-скил'
 
 export type CategoryList = {
 	[Key in CategoryType]: string;
